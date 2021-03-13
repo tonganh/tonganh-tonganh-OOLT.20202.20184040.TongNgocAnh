@@ -1,9 +1,6 @@
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,18 +12,23 @@ public class MyDate {
     public int month;
     public int year;
 
+    public void setDay(int day) {
 
-    /**
-     * Getter and setter for day- month- year
-     *
-     * @return
-     */
-    public int getDay() {
-        return day;
+        String month = "" + getMonth();
+        String year = "" + getYear();
+        String date = month + "/" + "1/" + year;
+        LocalDate convertedDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("M/d/yyyy"));
+        convertedDate = convertedDate.withDayOfMonth(
+                convertedDate.getMonth().length(convertedDate.isLeapYear()));
+        int lastDayInMonth = convertedDate.getDayOfMonth();
+        if (day < 1 || day > lastDayInMonth) {
+            throw new ArithmeticException("Day in valid.");
+        }
+        this.day = day;
     }
 
-    public void setDay(int day) {
-        this.day = day;
+    public int getDay() {
+        return day;
     }
 
     public int getMonth() {
@@ -34,23 +36,30 @@ public class MyDate {
     }
 
     public void setMonth(int month) {
+        if (month < 1 || month > 12) {
+            throw new ArithmeticException("Month invalid. Month must in range 1 to 12");
+        }
         this.month = month;
     }
 
     public int getYear() {
         return year;
     }
-
     public void setYear(int year) {
+        if (year < 0) {
+            throw new ArithmeticException("Year invalid. Year must great then 0");
+        }
         this.year = year;
     }
 
     MyDate(int day, int month, int year) {
-        setDay(day);
         setMonth(month);
         setYear(year);
+        setDay(day);
     }
-
+    public void print(){
+        printf();
+    }
     //Input like a string
     MyDate(String date) throws ParseException {
         SimpleDateFormat formatter2 = new SimpleDateFormat("MMM dd yyyy");
@@ -64,9 +73,9 @@ public class MyDate {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String monthFromInput = new SimpleDateFormat("M").format(calendar.getTime());
         int month = Integer.parseInt(monthFromInput);
-        setDay(day);
         setYear(year);
         setMonth(month);
+        setDay(day);
     }
 
     //    Get current time
@@ -77,17 +86,17 @@ public class MyDate {
         int day = cal.get(Calendar.DAY_OF_MONTH);
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
-        setDay(day);
         setYear(year);
         setMonth(month+1);
+        setDay(day);
+
     }
 
     static String accept() {
         Scanner sc = new Scanner(System.in);
 //       Get input is a string
-        System.out.printf("Enter string date you want to convert:");
-        String valueString = sc.nextLine();
-        return valueString;
+        System.out.print("Enter string date you want to convert:");
+        return sc.nextLine();
     }
 
     void printf() {
@@ -100,8 +109,10 @@ public class MyDate {
     }
 
     public static void main(String[] args) throws ParseException {
+
+
         String test = "December  18 2019";
-//        Input is a string
+//        Input is a string. Format of this is: month day year.
         String dateInputString = accept();
         MyDate inputString = new MyDate(dateInputString);
 //        printf value
@@ -117,6 +128,6 @@ public class MyDate {
         MyDate currentDate = new MyDate();
         System.out.println("-------------------------------------");
         System.out.println("Current time");
-        currentDate.printf();
+        currentDate.print();
     }
 }
