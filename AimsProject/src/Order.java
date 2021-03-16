@@ -28,8 +28,13 @@ public class Order {
         }
         return valueReturn;
     }
-
-    public int removeDigitalVideoDisc(DigitalVideoDisc disc) {
+    public DigitalVideoDisc[] getItemsOrdered(){
+        return this.itemsOrdered;
+    }
+    public int getQtyOrdered(){
+        return this.qtyOrdered;
+    }
+    public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
         int checkValueExistInArray = 0;
 //        checkValueExistInArray = 0 => disc.title not exist in array. =1 => exist and we can delete.
         for (int i = 0; i < qtyOrdered; i++) {
@@ -41,13 +46,16 @@ public class Order {
                         itemsOrdered[k] = itemsOrdered[k + 1];
                     }
                 }
+                System.out.println("Deleted.");
                 qtyOrdered--;
                 checkValueExistInArray = 1;
-                break;
+                return;
             }
         }
-        return checkValueExistInArray;
+//        return checkValueExistInArray;
     }
+
+//   Return array
 
     public void test(int checkValueExistInArray) {
         if (checkValueExistInArray == 0) {

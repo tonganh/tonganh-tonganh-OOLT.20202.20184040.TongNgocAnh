@@ -27,14 +27,15 @@ public class Aims {
         System.out.println("Total cost is: ");
         System.out.println(anOrder.totalCost());
         System.out.println("-------------------Now delete element-------------------");
-        int deleted = anOrder.removeDigitalVideoDisc(dvd2);
-        if(deleted == 0 ) {
-            System.out.println("Nothing to delete");
-        } else{
-            System.out.println("Delted.");
-        }
+//        int deleted = anOrder.removeDigitalVideoDisc(dvd2);
+//        if(deleted == 0 ) {
+//            System.out.println("Nothing to delete");
+//        } else{
+//            System.out.println("Delted.");
+
+        anOrder.removeDigitalVideoDisc(dvd2);
         System.out.println("-------------------Check delete-------------------");
-        anOrder.test(deleted);
+//        anOrder.test(deleted);
         System.out.println(anOrder.totalCost());
         System.out.println("-------------------Show list now-------------------");
         anOrder.showAllListVideoDisc();
