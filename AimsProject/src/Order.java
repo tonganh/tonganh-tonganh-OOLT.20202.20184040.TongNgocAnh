@@ -2,7 +2,6 @@ public class Order {
     public static final int MAX_NUMBERS_ORDERED = 10;
     private final DigitalVideoDisc[] itemsOrdered = new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
     private int qtyOrdered = 0;
-    int checkValueExistInArray = 0;
 
     //    add digital video disc method
     public void addDigitalVideoDisc(DigitalVideoDisc disc) {
@@ -30,7 +29,8 @@ public class Order {
         return valueReturn;
     }
 
-    public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
+    public int removeDigitalVideoDisc(DigitalVideoDisc disc) {
+        int checkValueExistInArray = 0;
 //        checkValueExistInArray = 0 => disc.title not exist in array. =1 => exist and we can delete.
         for (int i = 0; i < qtyOrdered; i++) {
             String titleDisc = disc.getTitle();
@@ -46,9 +46,10 @@ public class Order {
                 break;
             }
         }
+        return checkValueExistInArray;
     }
 
-    public void test() {
+    public void test(int checkValueExistInArray) {
         if (checkValueExistInArray == 0) {
             System.out.println("Disc not exist in array");
             return;
