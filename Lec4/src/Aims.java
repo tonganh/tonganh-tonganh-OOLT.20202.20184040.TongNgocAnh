@@ -28,5 +28,13 @@ public class Aims {
         System.out.println(anOrder.totalCost());
         System.out.println("-------------------Show list now-------------------");
         anOrder.showAllListVideoDisc();
+
+        System.out.println("-------------------Show list now 1.1-------------------");
+        DigitalVideoDisc[] listDiscTest = {dvd1, dvd2};
+        anOrder.addDigitalVideoDisc(listDiscTest);
+        anOrder.showAllListVideoDisc();
+        System.out.println("-------------------Show list now 1.2-------------------");
+        anOrder.addDigitalVideoDisc(dvd3, dvd2);
+        anOrder.showAllListVideoDisc();
     }
 }

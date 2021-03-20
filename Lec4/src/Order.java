@@ -23,12 +23,29 @@ public class Order {
             System.out.println("The order is almost full");
         }
     }
-//    public void addDigitalVideoDisc(DigitalVideoDisc[] dvdList) {
-//        if (nOrders + dvdList.length > 9) {
-//            throw new ArithmeticException("Full");
-//        }
-//
-//    }
+
+    //1.1 exercise in lab4
+    public void addDigitalVideoDisc(DigitalVideoDisc[] dvdList) {
+        if (dvdList != null) {
+            if (nOrders + dvdList.length > MAX_LIMITTED_ORDERS) {
+                throw new ArithmeticException("Full");
+            }
+            for (int i = 0; i < dvdList.length; i++) {
+                addDigitalVideoDisc(dvdList[i]);
+            }
+        }
+    }
+
+    //    exercise 1.2 in lab4
+    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+        if (nOrders == MAX_LIMITTED_ORDERS - 1) {
+            addDigitalVideoDisc(dvd1);
+            System.out.printf("The dvd %s could not be added \n", dvd1.getTitle());
+        } else if (nOrders == MAX_LIMITTED_ORDERS - 2) {
+            addDigitalVideoDisc(dvd1);
+            addDigitalVideoDisc(dvd2);
+        } else System.out.println("The item quantity has reached its limit.");
+    }
 
     public void showAllListVideoDisc() {
         int day = dateOrder.getDay();
@@ -75,11 +92,7 @@ public class Order {
         }
     }
 
-    public void test() {
-        if (checkValueExistInArray == 0) {
-            System.out.println("Disc not exist in array");
-            return;
-        }
-        System.out.println("Deleted");
+    public DigitalVideoDisc[] getItemsOrdered() {
+        return itemsOrdered;
     }
 }

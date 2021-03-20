@@ -2,15 +2,22 @@ public class TestPassingParameter {
     public static void main(String[] args) {
         DigitalVideoDisc jungleDVD = new DigitalVideoDisc("Jungle");
         DigitalVideoDisc cinderellaDVD = new DigitalVideoDisc("Cinderella");
+        System.out.println("*********BEFORE SWAP*********");
+        System.out.printf("Jungle DVD: %s -  cinderella DVD: %s\n", jungleDVD.getTitle(), cinderellaDVD.getTitle());
 
+        System.out.println("*********AFTER SWAP*********");
         swap(jungleDVD, cinderellaDVD);
+        System.out.printf("Jungle DVD: %s -  cinderella DVD: %s\n", jungleDVD.getTitle(), cinderellaDVD.getTitle());
+
         System.out.println("Jungle dvd title  " + jungleDVD.getTitle());
         System.out.println("cinderella dvd title  " + cinderellaDVD.getTitle());
         changeTitle(jungleDVD, cinderellaDVD.getTitle());
         System.out.println("Jungle dvd title is: " + jungleDVD.getTitle());
     }
 
-    public static void swap(DigitalVideoDisc o1, DigitalVideoDisc o2) {
+    public static void swap(Object object1, Object object2) {
+        DigitalVideoDisc o1 = (DigitalVideoDisc)object1;
+        DigitalVideoDisc o2 = (DigitalVideoDisc)object2;
         String titleTmp = o1.getTitle();
         String categoryTmp = o1.getCategory();
         String directorTmp = o1.getDirector();

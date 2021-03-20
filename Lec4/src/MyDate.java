@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -9,7 +8,7 @@ public class MyDate {
     public int day;
     public int month;
     public int year;
-    ArrayList<String> tensNames = new ArrayList<>(Arrays.asList("",
+    ArrayList<String> tensNames = new ArrayList<>(Arrays.asList("hundred",
             "ten",
             "twenty",
             "thirty",
@@ -137,7 +136,7 @@ public class MyDate {
     }
 
     //    Exercise lec4
-    MyDate(String day, String month, String year) {
+    MyDate(String day, String month, String year) throws Exception {
         String dayConvert = day.toLowerCase();
 //        String monthConvert = month.toLowerCase();
         String yearConvert = year.toLowerCase();
@@ -145,7 +144,8 @@ public class MyDate {
         String[] yearSplit = yearConvert.split(" ");
         int dozensDay = 0;
         int unitDay = 0;
-        int year1, year2, year3;
+        int year1, year2, year3, year4;
+        int yearParse;
 //        Check month input right type
         int indexOfMonth = monthName.indexOf(month);
         if (
@@ -163,12 +163,108 @@ public class MyDate {
             if (!numNames.contains(daySplit[0])) {
                 dozensDay = tensNames.indexOf(daySplit[0]);
             } else {
-                unitDay= numNames.indexOf(daySplit[0]);
+                unitDay = numNames.indexOf(daySplit[0]);
             }
         }
-        int dayOutput = dozensDay*10 + unitDay;
+//        split year
+//        first case: example twenty one twenty two
+        if (yearSplit.length == 4) {
+            year1 = tensNames.indexOf(yearSplit[0]);
+            year2 = numNames.indexOf(yearSplit[1]);
+            year3 = tensNames.indexOf(yearSplit[2]);
+            year4 = numNames.indexOf(yearSplit[3]);
+            System.out.printf("split year: %d %d %d %d\n", year1, year2, year3, year4);
+            yearParse = year1 * 1000 + year2 * 100 + year3 * 10 + year4;
+        } else if (yearSplit.length == 3) {
+            /*
+             * ten-num-ten(twenty one twenty)
+             * ten-num-num(twenty one ten)
+             * ten-ten-num(twenty twenty one)
+             * num-ten-num*(year1 start from 10 -> 19, then we have: ten twenty one)/
+             */
+//            check year split [0] in num - or ten number
+            year1 = tensNames.indexOf(yearSplit[0]);
+            //year split[0] in tens name
+            if (year1 != -1) {
+                year2 = tensNames.indexOf(yearSplit[1]);
+//                != -1 that's mean in ten name
+                if (year2 != -1) {
+//                    case: ten - ten - num
+                    year3 = numNames.indexOf(yearSplit[2]);
+                    yearParse = year1 * 1000 + year2 * 10 + year3;
+                }
+                //in this case we have t case minimum: ten- num-ten  or ten num num
+                else {
+                    year2 = numNames.indexOf(yearSplit[1]);
+                    year3 = tensNames.indexOf(yearSplit[2]);
+//                    1, ten- num-ten
+                    if (year3 != -1) {
+                        yearParse = year1 * 1000 + year2 * 100 + year3;
+                    }
+//                        2, ten-num-num
+                    else {
+                        year3 = numNames.indexOf(yearSplit[2]);
+                        yearParse = year1 * 1000 + year2 * 100 + year3;
+                    }
+                }
+            }
+//  last case: num - ten - num
+            else {
+                year1 = numNames.indexOf(yearSplit[0]);
+                year2 = tensNames.indexOf(yearSplit[1]);
+                year3 = numNames.indexOf(yearSplit[2]);
+                yearParse = year1 * 100 + year2 * 10 + year3;
+            }
+        }
+        /*
+         *         last case: year length =2, have 4 case:
+         *         num - num: thirteen fifteen (15 15)
+         *         num-ten( thirteen twenty - 1320)
+         *         ten-num(twenty thirteen)
+         *         ten-ten(twenty twenty)
+         * */
+        else if (yearSplit.length == 2) {
+            year1 = tensNames.indexOf(yearSplit[0]);
+//            ten - num or ten ten
+            if (year1 != -1) {
+                year2 = tensNames.indexOf(yearSplit[1]);
+//               if in ten - ten : twenty twenty
+                if (year2 != -1) {
+                    yearParse = year1 * 1000 + year2 * 10;
+                }
+                //                case ten - num
+
+                else {
+                    year2 = numNames.indexOf(yearSplit[1]);
+                    yearParse = year1 * 100 + year2;
+                }
+            }
+            //  num  num or num ten
+            else {
+                year1 = numNames.indexOf(yearSplit[0]);
+                year2 = tensNames.indexOf(yearSplit[1]);
+//                num - ten
+                if (year2 != -1) {
+                    yearParse = year1 * 100 + year2 * 10;
+                }
+//                num - num
+                else {
+                    year2 = numNames.indexOf(yearSplit[1]);
+                    yearParse = year1 * 100 + year2;
+                }
+            }
+        } else {
+            yearParse = 0;
+            throw new Exception("Your input about year cannot parse");
+        }
+        setYear(yearParse);
+        System.out.printf("yearParse: %d\n", yearParse);
+        int dayOutput = dozensDay * 10 + unitDay;
+        setDay(dayOutput);
+        setMonth(indexOfMonth);
         System.out.println(dayOutput);
     }
+
     static String accept() {
         Scanner sc = new Scanner(System.in);
 //       Get input is a string
@@ -185,7 +281,7 @@ public class MyDate {
         System.out.println("Year: " + year);
     }
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws Exception {
 
 
 //        String test = "December  18 2019";
@@ -208,6 +304,6 @@ public class MyDate {
 //        currentDate.print();
 
         System.out.println("---------------");
-        MyDate dateTest = new MyDate("twenty", "January", "three");
+        MyDate dateTest = new MyDate("twenty", "January", "thirteen one");
     }
 }
