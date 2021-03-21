@@ -99,9 +99,6 @@ public class MyDate {
         setDay(day);
     }
 
-    public void print() {
-        printf();
-    }
 
     //Input like a string
     MyDate(String date) throws ParseException {
@@ -132,7 +129,6 @@ public class MyDate {
         setYear(year);
         setMonth(month + 1);
         setDay(day);
-
     }
 
     //    Exercise lec4
@@ -145,7 +141,7 @@ public class MyDate {
         int dozensDay = 0;
         int unitDay = 0;
         int year1, year2, year3, year4;
-        int yearParse;
+        int yearParse = 0;
 //        Check month input right type
         int indexOfMonth = monthName.indexOf(month);
         if (
@@ -233,7 +229,6 @@ public class MyDate {
                     yearParse = year1 * 1000 + year2 * 10;
                 }
                 //                case ten - num
-
                 else {
                     year2 = numNames.indexOf(yearSplit[1]);
                     yearParse = year1 * 100 + year2;
@@ -253,16 +248,127 @@ public class MyDate {
                     yearParse = year1 * 100 + year2;
                 }
             }
-        } else {
-            yearParse = 0;
-            throw new Exception("Your input about year cannot parse");
         }
-        setYear(yearParse);
-        System.out.printf("yearParse: %d\n", yearParse);
         int dayOutput = dozensDay * 10 + unitDay;
-        setDay(dayOutput);
+        setYear(yearParse);
         setMonth(indexOfMonth);
+        setDay(dayOutput);
+        System.out.printf("yearParse: %d\n", yearParse);
+        System.out.printf("Day output: %d\n", dayOutput);
+        System.out.printf("indexOfMonth: %d\n", indexOfMonth);
         System.out.println(dayOutput);
+    }
+
+    public String convertDay() {
+        int day = getDay();
+        String dayConvert = "";
+        int remainderOfDay = day % 10;
+        if (remainderOfDay == 1) {
+            dayConvert = "" + day + "st";
+        } else if (remainderOfDay == 2) {
+            dayConvert = "" + day + "nd";
+        } else if (remainderOfDay == 3) {
+            dayConvert = "" + day + "rd";
+        } else {
+            dayConvert = "" + day + "th";
+        }
+        return dayConvert;
+    }
+    public String parseMonth(){
+        int month = getMonth();
+        String monthParse1 = monthName.get(month);
+        String[] monthArray = monthParse1.split("");
+        String monthReturn = "";
+        for (int i=0; i <3;i++){
+            monthReturn += monthArray[i];
+        }
+        return monthReturn;
+    }
+    public void print() {
+        int day = getDay();
+        String dayConvert = convertDay();
+        int month = getMonth();
+        String monthParse = monthName.get(month);
+        int year = getYear();
+        System.out.printf("%s %s %d\n", monthParse, dayConvert, year);
+    }
+
+    public void printfHaveFormat() {
+        System.out.println("SELECT FORMAT TO PRINTF");
+        System.out.println("1.yyyy-MM-dd");
+        System.out.println("2.d/M/yyyy");
+        System.out.println("3.dd-MMM-yyyy");
+        System.out.println("4.MMM d yyyy");
+        System.out.println("5.mm-dd-yyyy");
+        int day = getDay();
+
+        int month = getMonth();
+
+        int year = getYear();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the format you want");
+        int choice = sc.nextInt();
+        switch (choice) {
+            case 1: {
+                String dayParse = "";
+                if (day < 10) {
+                    dayParse = "0" + day + "";
+                } else {
+                    dayParse = day + "";
+                }
+                String monthParse = "";
+                if (month < 10) {
+                    monthParse = "0" + month + "";
+                } else {
+                    monthParse = "" + month;
+                }
+                System.out.println("1.yyyy-MM-dd");
+                System.out.printf("%d-%s-%s\n", year, monthParse, dayParse);
+                break;
+            }
+            case 2: {
+                System.out.println("2.d/M/yyyy");
+                System.out.printf("%d/%d/%d\n", day, month, year);
+                break;
+            }
+            case 3: {
+                String monthParse = parseMonth();
+                String dayParse = "";
+                if (day < 10) {
+                    dayParse = "0" + day + "";
+                } else {
+                    dayParse = day + "";
+                }
+                System.out.println("3.dd-MMM-yyyy");
+                System.out.printf("%s-%s-%d\n",dayParse,monthParse, year);
+                break;
+            }
+            case 4: {
+                String monthParse = parseMonth();
+                System.out.println("4.MMM d yyyy");
+                System.out.printf("%s %d %d", monthParse, day, year);
+                break;
+            }
+            case 5: {
+                String dayParse = "";
+                if (day < 10) {
+                    dayParse = "0" + day + "";
+                } else {
+                    dayParse = day + "";
+                }
+                String monthParse = "";
+                if (month < 10) {
+                    monthParse = "0" + month + "";
+                } else {
+                    monthParse = "" + month;
+                }
+                System.out.println("5.mm-dd-yyyy");
+                System.out.printf("%s-%s-%d\n", monthParse, dayParse, year);
+                break;
+            }
+            default:
+                System.out.println("Your choice invalid. We will out now.");
+        }
     }
 
     static String accept() {
@@ -270,15 +376,7 @@ public class MyDate {
 //       Get input is a string
         System.out.print("Enter string date you want to convert:");
         return sc.nextLine();
-    }
 
-    void printf() {
-        int day = getDay();
-        int month = getMonth();
-        int year = getYear();
-        System.out.println("Day: " + day);
-        System.out.println("Month: " + month);
-        System.out.println("Year: " + year);
     }
 
     public static void main(String[] args) throws Exception {
@@ -304,6 +402,10 @@ public class MyDate {
 //        currentDate.print();
 
         System.out.println("---------------");
-        MyDate dateTest = new MyDate("twenty", "January", "thirteen one");
+        MyDate dateTest = new MyDate("one", "January", "thirteen one");
+        System.out.println("---------------");
+        MyDate currentDate = new MyDate();
+        currentDate.print();
+        currentDate.printfHaveFormat();
     }
 }
