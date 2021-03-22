@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class MyDate {
+public class MyDate<arrDate> {
     public int day;
     public int month;
     public int year;
@@ -98,7 +98,6 @@ public class MyDate {
         setYear(year);
         setDay(day);
     }
-
 
     //Input like a string
     MyDate(String date) throws ParseException {
@@ -194,14 +193,10 @@ public class MyDate {
                     year2 = numNames.indexOf(yearSplit[1]);
                     year3 = tensNames.indexOf(yearSplit[2]);
 //                    1, ten- num-ten
-                    if (year3 != -1) {
-                        yearParse = year1 * 1000 + year2 * 100 + year3;
-                    }
-//                        2, ten-num-num
-                    else {
+                    if (year3 == -1) {
                         year3 = numNames.indexOf(yearSplit[2]);
-                        yearParse = year1 * 1000 + year2 * 100 + year3;
                     }
+                    yearParse = year1 * 1000 + year2 * 100 + year3;
                 }
             }
 //  last case: num - ten - num
@@ -253,10 +248,6 @@ public class MyDate {
         setYear(yearParse);
         setMonth(indexOfMonth);
         setDay(dayOutput);
-        System.out.printf("yearParse: %d\n", yearParse);
-        System.out.printf("Day output: %d\n", dayOutput);
-        System.out.printf("indexOfMonth: %d\n", indexOfMonth);
-        System.out.println(dayOutput);
     }
 
     public String convertDay() {
@@ -274,16 +265,18 @@ public class MyDate {
         }
         return dayConvert;
     }
-    public String parseMonth(){
+
+    public String parseMonth() {
         int month = getMonth();
         String monthParse1 = monthName.get(month);
         String[] monthArray = monthParse1.split("");
         String monthReturn = "";
-        for (int i=0; i <3;i++){
+        for (int i = 0; i < 3; i++) {
             monthReturn += monthArray[i];
         }
         return monthReturn;
     }
+
     public void print() {
         int day = getDay();
         String dayConvert = convertDay();
@@ -340,7 +333,7 @@ public class MyDate {
                     dayParse = day + "";
                 }
                 System.out.println("3.dd-MMM-yyyy");
-                System.out.printf("%s-%s-%d\n",dayParse,monthParse, year);
+                System.out.printf("%s-%s-%d\n", dayParse, monthParse, year);
                 break;
             }
             case 4: {
