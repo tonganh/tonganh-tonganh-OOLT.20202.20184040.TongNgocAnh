@@ -2,7 +2,6 @@ package hust.soict.hedspi.aims;
 
 import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
 import hust.soict.hedspi.aims.order.Order;
-
 public class Aims {
     public static void main(String[] args) {
         Order anOrder = new Order();
@@ -21,7 +20,7 @@ public class Aims {
         dvd2.setDirector("George Lucas");
         dvd2.setLength(124);
 
-        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin");
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Harry potter");
         dvd3.setCategory("Animation");
         dvd3.setCost(18.99f);
         dvd3.setDirector("John Musker");
@@ -40,6 +39,10 @@ public class Aims {
         anOrder.showAllListVideoDisc();
         System.out.println("-------------------Show list now 1.2-------------------");
         anOrder.addDigitalVideoDisc(dvd3, dvd2);
+
         anOrder.showAllListVideoDisc();
+        System.out.println(anOrder.search("potter harry"));
+        DigitalVideoDisc itemLuck = anOrder.getALuckyItem();
+        System.out.println(itemLuck.getTitle());
     }
 }

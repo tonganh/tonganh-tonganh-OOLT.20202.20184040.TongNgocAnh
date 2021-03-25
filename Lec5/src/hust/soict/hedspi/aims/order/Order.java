@@ -3,7 +3,10 @@ package hust.soict.hedspi.aims.order;
 import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
 import hust.soict.hedspi.aims.utils.MyDate;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Order {
     public static final int MAX_LIMITTED_ORDERS = 5;
@@ -95,6 +98,36 @@ public class Order {
                 break;
             }
         }
+    }
+
+    public boolean search(String title) {
+        String titleLowerCase = title.toLowerCase();
+        String[] arraySplit = titleLowerCase.split(" ");
+        ArrayList<String> subStringInput = new ArrayList<>(Arrays.asList(arraySplit));
+        for (int i = 0; i < nOrders; i++) {
+            String titleVideoDiscLowerCase = itemsOrdered[i].getTitle().toLowerCase();
+            String[] arrayTitleVideoSplit = titleVideoDiscLowerCase.split(" ");
+            int lengthArrayTitleVideoSplit = arrayTitleVideoSplit.length;
+            int checkForDisk = 0;
+            for (int indexInArraySplit = 0; indexInArraySplit < lengthArrayTitleVideoSplit; indexInArraySplit++) {
+                int existInInputTitle = subStringInput.indexOf(arrayTitleVideoSplit[indexInArraySplit]);
+                if (existInInputTitle != -1) {
+                    checkForDisk += 1;
+                }
+            }
+            if (checkForDisk == lengthArrayTitleVideoSplit) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public DigitalVideoDisc getALuckyItem() {
+        int max = 4;
+        int min = 0;
+        int range = max - min + 1;
+        int rand = (int) (Math.random() * range) + min;
+        return itemsOrdered[rand];
     }
 
     public DigitalVideoDisc[] getItemsOrdered() {
