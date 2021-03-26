@@ -1,10 +1,6 @@
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 
-import java.util.Arrays;
-import java.util.Objects;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderTest {
 
