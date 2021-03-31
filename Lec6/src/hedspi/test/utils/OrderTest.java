@@ -1,9 +1,10 @@
-//package hust.soict.hedspi.test.utils;
+//package hedspi.test.utils;
 //
-//import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
-//import hust.soict.hedspi.aims.order.Order;
+//import hedspi.aims.media.DigitalVideoDisc;
+//import hedspi.aims.order.Order;
 //import org.testng.annotations.Test;
 //
+//import static org.junit.Assert.*;
 //import static org.junit.Assert.assertEquals;
 //
 //public class OrderTest {
