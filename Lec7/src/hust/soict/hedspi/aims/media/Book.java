@@ -6,15 +6,15 @@ import java.util.List;
 public class Book extends Media {
 
 
-    Book(String title) {
+    public Book(String title) {
         super(title);
     }
 
-    Book(String title, String category) {
+    public Book(String title, String category) {
         super(title, category);
     }
 
-    Book(String title,
+    public Book(String title,
          String category,
          List<String> authors) {
         super(title, category);

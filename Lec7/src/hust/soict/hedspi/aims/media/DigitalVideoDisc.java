@@ -1,6 +1,6 @@
 package hust.soict.hedspi.aims.media;
 
-public class DigitalVideoDisc extends Media  {
+public class DigitalVideoDisc extends Disc implements Playable {
     private String director;
     private int length;
 
@@ -29,8 +29,11 @@ public class DigitalVideoDisc extends Media  {
     }
 
 
-
     public static void main(String[] args) {
 
+    }
+
+    @Override
+    public void play() {
     }
 }

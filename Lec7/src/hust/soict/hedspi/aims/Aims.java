@@ -1,6 +1,6 @@
 package hust.soict.hedspi.aims;
 
-import hust.soict.hedspi.aims.media.Media;
+import hust.soict.hedspi.aims.media.Book;
 import hust.soict.hedspi.aims.order.Order;
 
 import java.util.Scanner;
@@ -23,6 +23,8 @@ public class Aims {
         Aims aimsLec6 = new Aims();
         Order orderLec6 = null;
         int checkCreatedOrder = 0;
+        MemoryDaemon test1 = new MemoryDaemon();
+        test1.run();
         do {
             aimsLec6.showMenu();
             Scanner input = new Scanner(System.in);
@@ -48,11 +50,11 @@ public class Aims {
                     System.out.println("Enter the  category you want to add to order");
                     Scanner readCategory = new Scanner(System.in);
                     String category = readCategory.nextLine();
-                    Media itemToAdd;
+                    Book itemToAdd;
                     if (category.equals("")) {
-                        itemToAdd = new Media(title);
+                        itemToAdd = new Book(title);
                     } else {
-                        itemToAdd = new Media(title, category);
+                        itemToAdd = new Book(title, category);
                     }
                     orderLec6.addMedia(itemToAdd);
                     break;
