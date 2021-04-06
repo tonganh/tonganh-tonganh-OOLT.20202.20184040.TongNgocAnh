@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>hust.soict.hedspi.aims.media</OriginalElement>
+  <nodes>
+    <node x="505.15625" y="282.0">hust.soict.hedspi.aims.media.Playable</node>
+    <node x="263.15625" y="215.0">hust.soict.hedspi.aims.media.Book</node>
+    <node x="0.0" y="530.0">hust.soict.hedspi.aims.media.DigitalVideoDisc</node>
+    <node x="96.15625" y="248.5">hust.soict.hedspi.aims.media.Disc</node>
+    <node x="115.875" y="0.0">hust.soict.hedspi.aims.media.Media</node>
+    <node x="577.15625" y="518.5">hust.soict.hedspi.aims.media.Track</node>
+    <node x="311.0" y="463.0">hust.soict.hedspi.aims.media.CompactDisc</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="hust.soict.hedspi.aims.media.Book" target="hust.soict.hedspi.aims.media.Media">
+      <point x="0.0" y="-94.0" />
+      <point x="374.15625" y="190.0" />
+      <point x="247.54166666666666" y="190.0" />
+      <point x="52.66666666666666" y="82.5" />
+    </edge>
+    <edge source="hust.soict.hedspi.aims.media.DigitalVideoDisc" target="hust.soict.hedspi.aims.media.Media">
+      <point x="-71.33333333333331" y="-60.5" />
+      <point x="35.666666666666686" y="443.0" />
+      <point x="66.515625" y="443.0" />
+      <point x="66.515625" y="190.0" />
+      <point x="142.20833333333334" y="190.0" />
+      <point x="-52.66666666666666" y="82.5" />
+    </edge>
+    <edge source="hust.soict.hedspi.aims.media.DigitalVideoDisc" target="hust.soict.hedspi.aims.media.Disc">
+      <point x="1.4210854715202004E-14" y="-60.5" />
+      <point x="107.0" y="443.0" />
+      <point x="132.90625" y="443.0" />
+      <point x="-36.75" y="60.5" />
+    </edge>
+    <edge source="hust.soict.hedspi.aims.media.Track" target="hust.soict.hedspi.aims.media.Playable">
+      <point x="0.0" y="-72.0" />
+      <point x="644.65625" y="443.0" />
+      <point x="596.8229166666666" y="443.0" />
+      <point x="36.66666666666663" y="27.0" />
+    </edge>
+    <edge source="hust.soict.hedspi.aims.media.CompactDisc" target="hust.soict.hedspi.aims.media.Playable">
+      <point x="48.75" y="-127.5" />
+      <point x="457.25" y="443.0" />
+      <point x="560.15625" y="443.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="hust.soict.hedspi.aims.media.Disc" target="hust.soict.hedspi.aims.media.Media">
+      <point x="0.0" y="-60.5" />
+      <point x="169.65625" y="190.0" />
+      <point x="194.875" y="190.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="hust.soict.hedspi.aims.media.CompactDisc" target="hust.soict.hedspi.aims.media.Disc">
+      <point x="-48.75" y="-127.5" />
+      <point x="359.75" y="423.0" />
+      <point x="206.40625" y="423.0" />
+      <point x="36.75" y="60.5" />
+    </edge>
+    <edge source="hust.soict.hedspi.aims.media.DigitalVideoDisc" target="hust.soict.hedspi.aims.media.Playable">
+      <point x="71.33333333333331" y="-60.5" />
+      <point x="178.33333333333331" y="433.0" />
+      <point x="523.4895833333334" y="433.0" />
+      <point x="-36.66666666666663" y="27.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.807859078590786" x="356.49999999999994" y="384.99999999999994" />
+  <SelectedNodes>
+    <node>hust.soict.hedspi.aims.media.Playable</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
