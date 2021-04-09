@@ -188,16 +188,21 @@ public class Order {
     }
 
     public void showListMedia() {
-        System.out.println("Show list media:");
-        System.out.printf("ID %-20s %-20s\n", "Title", "Category");
-        itemsOrdered.forEach(media -> {
-            String title = media.getTitle();
-            String category = media.getCategory();
-            if (category == null) {
-                category = "";
+        if (itemsOrdered.size() != 0) {
+            System.out.println("Show list media:");
+            System.out.printf("ID %-20s %-20s\n", "Title", "Category");
+            for (Media media : itemsOrdered) {
+                String title = media.getTitle();
+                String category = media.getCategory();
+                if (category == null) {
+                    category = "";
+                }
+                System.out.printf("%d %-20s %-20s\n", media.getId(), media.getTitle(), category);
             }
-            System.out.printf("%d %-20s %-20s\n", media.getId(), media.getTitle(), category);
-        });
+        }
+        else {
+            System.out.println("Don't have any data");
+        }
     }
 
     public float totalCost() {

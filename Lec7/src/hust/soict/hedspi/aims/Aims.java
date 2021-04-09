@@ -16,6 +16,7 @@ public class Aims {
         System.out.println("--------------------------------");
         System.out.println("Please choose a number: 0-1-2-3-4");
     }
+
     public static void main(String[] args) {
         int choice;
         Aims aimsLec6 = new Aims();
@@ -32,7 +33,7 @@ public class Aims {
                     System.out.println("Program end in ...");
                     break;
                 case 1:
-                    if (checkCreatedOrder==0){
+                    if (checkCreatedOrder == 0) {
                         order = new Order();
                         System.out.println("Create new order successful");
                         checkCreatedOrder = 1;
@@ -49,12 +50,20 @@ public class Aims {
                     order.addAction();
                     break;
                 case 3:
+                    if (checkCreatedOrder == 0) {
+                        System.out.println("You must create order");
+                        break;
+                    }
                     Scanner idDelete = new Scanner(System.in);
                     System.out.println("Enter id you want to delete");
                     int id = idDelete.nextInt();
                     order.removeMedia(id);
                     break;
                 case 4:
+                    if (checkCreatedOrder == 0) {
+                        System.out.println("You must create order");
+                        break;
+                    }
                     order.showListMedia();
                     break;
                 default:
