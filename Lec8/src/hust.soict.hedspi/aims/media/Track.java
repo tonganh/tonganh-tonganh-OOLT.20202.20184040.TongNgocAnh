@@ -18,6 +18,7 @@ public class Track implements Playable {
         this.title=title;
         this.length=length;
     }
+
     @Override
     public void play() {
         System.out.println("Playing DVD: " + this.getTitle());

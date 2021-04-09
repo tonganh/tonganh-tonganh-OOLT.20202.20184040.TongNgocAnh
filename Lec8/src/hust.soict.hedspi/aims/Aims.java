@@ -1,5 +1,6 @@
 package hust.soict.hedspi.aims;
 
+import hust.soict.hedspi.aims.media.Book;
 import hust.soict.hedspi.aims.order.Order;
 
 import java.util.Scanner;
@@ -16,46 +17,55 @@ public class Aims {
         System.out.println("--------------------------------");
         System.out.println("Please choose a number: 0-1-2-3-4");
     }
+
     public static void main(String[] args) {
         int choice;
         Aims aimsLec6 = new Aims();
-        Order order = null;
+        Order orderLec6 = null;
         int checkCreatedOrder = 0;
+        MemoryDaemon test1 = new MemoryDaemon();
+        test1.run();
         do {
             aimsLec6.showMenu();
             Scanner input = new Scanner(System.in);
             System.out.println("Enter your choice");
             choice = input.nextInt();
-            System.out.print("=============\n");
             switch (choice) {
                 case 0:
                     System.out.println("Program end in ...");
                     break;
                 case 1:
-                    if (checkCreatedOrder==0){
-                        order = new Order();
-                        System.out.println("Create new order successful");
-                        checkCreatedOrder = 1;
-                    } else {
-                        System.out.println("Order created");
-                    }
-
+                    orderLec6 = new Order();
+                    System.out.println("Create new order successfull");
+                    checkCreatedOrder = 1;
                     break;
                 case 2:
                     if (checkCreatedOrder == 0) {
                         System.out.println("You must create order");
                         break;
                     }
-                    order.addAction();
+                    System.out.println("Enter the title of disc/book you want to add to order");
+                    Scanner readTitle = new Scanner(System.in);
+                    String title = readTitle.nextLine();
+                    System.out.println("Enter the  category you want to add to order");
+                    Scanner readCategory = new Scanner(System.in);
+                    String category = readCategory.nextLine();
+                    Book itemToAdd;
+                    if (category.equals("")) {
+                        itemToAdd = new Book(title);
+                    } else {
+                        itemToAdd = new Book(title, category);
+                    }
+                    orderLec6.addMedia(itemToAdd);
                     break;
                 case 3:
                     Scanner idDelete = new Scanner(System.in);
                     System.out.println("Enter id you want to delete");
                     int id = idDelete.nextInt();
-                    order.removeMedia(id);
+                    orderLec6.removeMedia(id);
                     break;
                 case 4:
-                    order.showListMedia();
+                    orderLec6.showListMedia();
                     break;
                 default:
                     System.out.println("Your choice invalid.");

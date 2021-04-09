@@ -8,7 +8,7 @@ public class DigitalVideoDisc extends Disc implements Playable {
         super(title);
     }
 
-    public DigitalVideoDisc(String title, String category) {
+    DigitalVideoDisc(String title, String category) {
         super(title, category);
     }
 
@@ -32,9 +32,8 @@ public class DigitalVideoDisc extends Disc implements Playable {
     public static void main(String[] args) {
 
     }
-    
+
     @Override
     public void play() {
-        System.out.printf("The title is %s and the category is %s\n", this.getTitle(), this.getCategory());
     }
 }
