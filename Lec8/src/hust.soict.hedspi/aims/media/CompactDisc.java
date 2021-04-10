@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CompactDisc extends Media implements Playable {
+public class CompactDisc extends Disc implements Playable {
     public CompactDisc(String title) {
         super(title);
     }
@@ -21,6 +21,7 @@ public class CompactDisc extends Media implements Playable {
         super(title, category);
     }
 
+    //    public CompactDisc(String title,String category)
     public void addTrack(Track track) {
         String title = track.getTitle();
         int i = 1;
@@ -33,6 +34,21 @@ public class CompactDisc extends Media implements Playable {
         }
         tracks.add(track);
         System.out.println("Added to tracks");
+        int choice;
+//        do {
+//            Scanner input = new Scanner(System.in);
+//            showMenu();
+//            choice = input.nextInt();
+//            switch (choice) {
+//                case 1:
+//                    track.play();
+//                    break;
+//                case 2:
+//                    break;
+//                default:
+//                    break;
+//            }
+//        } while (choice != 2);
     }
 
     public void showMenu() {
@@ -92,11 +108,16 @@ public class CompactDisc extends Media implements Playable {
     public static void main(String[] args) {
 
     }
+
     @Override
     public void play() {
+        System.out.printf("%-20s %-20s\n", "Title", "Length");
         tracks.forEach(track -> {
-            System.out.printf("%-20s %-20s\n", "Title", "Length");
             System.out.printf("%-20s %-20s\n", track.getTitle(), track.getLength());
         });
+    }
+    @Override
+    public int compareTo(Media o) {
+        return 0;
     }
 }

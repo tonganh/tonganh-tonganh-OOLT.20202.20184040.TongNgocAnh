@@ -1,6 +1,6 @@
 package hust.soict.hedspi.aims.media;
 
-public abstract class Media {
+public abstract class Media implements Comparable<Media> {
     public int getId() {
         return id;
     }
@@ -17,9 +17,8 @@ public abstract class Media {
     public String getTitle() {
         return title;
     }
-//    public boolean equals(Object o){
-//        i
-//    }
+
+
     public String getCategory() {
         return category;
     }
@@ -44,5 +43,8 @@ public abstract class Media {
         this.category = category;
     }
 
-
+    @Override
+    public int compareTo(Media o) {
+        return this.getTitle().compareTo(o.getTitle());
+    }
 }

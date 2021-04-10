@@ -19,4 +19,10 @@ public class Disc extends Media {
 
     private int length;
     private String director;
+
+    @Override
+    public int compareTo(Media o) {
+        int valueReturn = this.getTitle().compareTo(o.getTitle()) + this.getCategory().compareTo(o.getCategory());
+        return valueReturn;
+    }
 }
