@@ -12,6 +12,17 @@ public class DigitalVideoDisc extends Disc implements Playable {
         super(title, category);
     }
 
+    public DigitalVideoDisc(String title, String category, int length) {
+        super(title, category);
+        this.setLength(length);
+    }
+
+    public DigitalVideoDisc(String title, float cost, int length) {
+        super(title);
+        this.setCost(cost);
+        this.setLength(length);
+    }
+
     public String getDirector() {
         return director;
     }
@@ -31,12 +42,23 @@ public class DigitalVideoDisc extends Disc implements Playable {
 
     @Override
     public void play() {
-        System.out.printf("The title is %s and the category is %s\n", this.getTitle(), this.getCategory());
+        System.out.printf("The title is %s,cost is %f, length is %d\n", this.getTitle(), this.getCost(), this.getLength());
     }
 
     @Override
     public int compareTo(Media o) {
-        int valueReturn = this.getTitle().compareTo(o.getTitle()) + this.getCategory().compareTo(o.getCategory());
-        return valueReturn;
+        DigitalVideoDisc valueAfterCast = (DigitalVideoDisc) o;
+        int compareCost = 0;
+        if (this.getCost() > valueAfterCast.getCost()) {
+            return 1;
+        } else if (this.getCost() < valueAfterCast.getCost()) {
+            return -1;
+        }
+        if (this.getLength() > valueAfterCast.getLength()) {
+            return 1;
+        } else if (this.getLength() < valueAfterCast.getLength()) {
+            return -1;
+        }
+        return this.getTitle().compareTo(valueAfterCast.getTitle());
     }
 }

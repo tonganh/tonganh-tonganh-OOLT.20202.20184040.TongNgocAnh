@@ -50,7 +50,9 @@ public class CompactDisc extends Disc implements Playable {
 //            }
 //        } while (choice != 2);
     }
-
+    public int getTotalTrack(){
+        return this.tracks.size();
+    }
     public void showMenu() {
         System.out.println("Track Management Application: ");
         System.out.println("--------------------------------");
@@ -118,6 +120,21 @@ public class CompactDisc extends Disc implements Playable {
     }
     @Override
     public int compareTo(Media o) {
-        return 0;
+        CompactDisc objectConvert  = (CompactDisc) o;
+        int currentSumOfTracks = this.getTotalTrack();
+        int objectConvertSumOfTracsk = objectConvert.getTotalTrack();
+        if (currentSumOfTracks > objectConvertSumOfTracsk) {
+            return 1;
+        } else if (currentSumOfTracks < objectConvertSumOfTracsk) {
+            return -1;
+        }
+        int currentLength = this.getLength();
+        int convertedLength = objectConvert.getLength();
+        if (currentLength > convertedLength) {
+            return 1;
+        } else if (currentLength < convertedLength) {
+            return -1;
+        }
+        return this.getTitle().compareTo(objectConvert.getTitle());
     }
 }
