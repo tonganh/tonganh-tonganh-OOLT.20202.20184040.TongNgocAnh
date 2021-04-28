@@ -17,8 +17,6 @@ public abstract class Media implements Comparable<Media> {
     public String getTitle() {
         return title;
     }
-
-
     public String getCategory() {
         return category;
     }

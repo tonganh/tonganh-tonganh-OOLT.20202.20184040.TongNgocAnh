@@ -18,11 +18,11 @@ public class Track implements Playable, Comparable<Track> {
         this.title=title;
         this.length=length;
     }
+
     @Override
     public void play() {
         System.out.println("Playing DVD: " + this.getTitle());
         System.out.println("DVD length: " + this.getLength());
-
     }
 
     @Override
