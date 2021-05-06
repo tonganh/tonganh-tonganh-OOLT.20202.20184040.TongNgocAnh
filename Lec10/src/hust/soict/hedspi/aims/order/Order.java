@@ -1,14 +1,14 @@
 package hust.soict.hedspi.aims.order;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.book.Book;
 import hust.soict.hedspi.aims.media.disc.DigitalVideoDisc;
 import hust.soict.hedspi.aims.utils.MyDate;
 
-public class Order{		
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Order  {
 		
 		public static final int MAX_NUMBERS_ORDERED = 10;
 		public static final int MAX_LIMITTED_ORDERED = 5;

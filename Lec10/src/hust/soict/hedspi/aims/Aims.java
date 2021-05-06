@@ -1,11 +1,5 @@
 package hust.soict.hedspi.aims;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Scanner;
-
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.book.Book;
 import hust.soict.hedspi.aims.media.disc.CompactDisc;
@@ -13,9 +7,11 @@ import hust.soict.hedspi.aims.media.disc.DigitalVideoDisc;
 import hust.soict.hedspi.aims.media.disc.Track;
 import hust.soict.hedspi.aims.order.Order;
 
+import java.util.*;
+
 public class Aims {
 	public static Order anOrder;
-	public static void main(String[] args) {
+	public static void main(String[] args) throws PlayerException {
 //		MemoryDaemon memoryDaemon = new MemoryDaemon();
 //		Thread thread = new Thread(memoryDaemon);
 //		thread.start();
@@ -88,7 +84,7 @@ public class Aims {
 		}
 		System.out.println("-----------------------------");
 	}
-	public static void showMenu() {
+	public static void showMenu() throws PlayerException {
 		Scanner scanner = new Scanner(System.in);
 		int select;		
 		do {
@@ -159,7 +155,7 @@ public class Aims {
 		System.out.println("******************KET THUC******************");
 		scanner.close();
 	}
-	public static void  AddMedia() {
+	public static void  AddMedia() throws PlayerException {
 		int select;
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Add Media : ");
@@ -217,7 +213,7 @@ public class Aims {
 		anOrder.addMedia(book);
 //		scanner.close();
 	}
-	public static void addDVD() {
+	public static void addDVD() throws PlayerException {
 		Scanner scanner = new Scanner(System.in);
 //		scanner.nextLine();
 		System.out.print("Id: ");
@@ -248,7 +244,7 @@ public class Aims {
 		anOrder.addMedia(dvdDigitalVideoDisc);
 //		scanner.close();
 	}
-	public static void addCD() {
+	public static void addCD() throws PlayerException {
 		Scanner scanner = new Scanner(System.in);
 //		scanner.nextLine();
 		System.out.print("Id: ");
