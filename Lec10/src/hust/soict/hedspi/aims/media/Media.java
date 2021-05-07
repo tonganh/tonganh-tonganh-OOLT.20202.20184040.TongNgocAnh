@@ -1,6 +1,9 @@
 package hust.soict.hedspi.aims.media;
 
-public abstract class Media implements Comparable {
+import hust.soict.hedspi.aims.PlayerException;
+import hust.soict.hedspi.aims.media.disc.Playable;
+
+public abstract class Media implements Comparable, Playable {
     //	private static int index = 0;
     public int compareTo(Object obj) {
         if (obj == null) {
@@ -88,4 +91,14 @@ public abstract class Media implements Comparable {
 //		this.setId();
     }
 
+    @Override
+    public void play() throws PlayerException {
+        String id = this.getId();
+        String title = this.getTitle();
+        String category = this.getCategory();
+        float cost = this.getCost();
+        System.out.println("Detail Media:");
+        System.out.printf("%-10s %-10s %-10s %-10s\n", "ID", "Title", "Category", "Cost");
+        System.out.printf("%-10s %-10s %-10s %-10.3f\n", id, title, category, cost);
+    }
 }

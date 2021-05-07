@@ -33,7 +33,9 @@ public class Order  {
 		private Order() {
 			
 		}
-
+		public Media getMediaWithIndex(int index){
+			return itemsOrdered.get(index);
+		}
 		public static Order createOrder() {
 			if (nbOrders < MAX_LIMITTED_ORDERED) {
 				nbOrders++;
