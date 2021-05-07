@@ -118,43 +118,6 @@ public class Order  {
 				sum += itemsOrdered.get(i).getCost();			
 			return sum;			
 		}
-		
-		public void printOrder(int oppdate) {
-			if (!isEmpty()) {
-//				this.luckyDisc = this.getALuckyItem();
-				Media lucky = this.getALuckyItem();
-				System.out.println("**************************Order**************************");
-				System.out.print("Date: ");
-				this.myDate.print(oppdate);	// Them opption ngay thang o day
-				System.out.println("Ordered items:");
-				System.out.println("STT) Id. Type - Title - Category - Cost");
-				for(int i = 0 ; i < itemsOrdered.size(); i++) {
-					System.out.print((i+1)+") ");
-					System.out.print(itemsOrdered.get(i).getId()+". ");
-					if (itemsOrdered.get(i) instanceof Book) {
-						System.out.print("Book- ");
-					}
-					else if (itemsOrdered.get(i) instanceof DigitalVideoDisc) {
-						System.out.print("DVD- ");
-					}
-					else {
-						System.out.print("CD- ");
-					}
-					System.out.print(itemsOrdered.get(i).getTitle()+ " - "+ itemsOrdered.get(i).getCategory()+": ");
-					if(lucky.equals(itemsOrdered.get(i))) {
-						System.out.println("0.0 $");
-					}
-					else {
-						System.out.println(itemsOrdered.get(i).getCost() + " $");
-					}
-				}
-				System.out.println("Total cost: " + (this.totalCost() - lucky.getCost()) + " $");
-				System.out.println("*********************************************************");
-			}
-			else {
-				System.out.println("Order empty");
-			}
-		}
 		public boolean isEmpty() {
 			if(this.itemsOrdered.size()>0) {
 				return false;

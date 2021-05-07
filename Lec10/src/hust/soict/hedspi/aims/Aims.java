@@ -12,6 +12,16 @@ import java.util.*;
 public class Aims {
     public static Order anOrder;
 
+    public static float getTotalCostNeed() {
+        return totalCostNeed;
+    }
+
+    public static void setTotalCostNeed(float totalCostNeed) {
+        Aims.totalCostNeed = totalCostNeed;
+    }
+
+    private static float totalCostNeed;
+
     public static void main(String[] args) throws PlayerException {
 //		MemoryDaemon memoryDaemon = new MemoryDaemon();
 //		Thread thread = new Thread(memoryDaemon);
@@ -146,6 +156,15 @@ public class Aims {
                 case 5:
                     if (anOrder != null) {
                         if (!anOrder.isEmpty()) {
+                            Scanner input = new Scanner(System.in);
+                            System.out.printf("Type your preset cost you want: ");
+                            float presetCost = input.nextFloat();
+                            setTotalCostNeed(presetCost);
+                            float totalCostOfOrder = anOrder.totalCost();
+                            if (totalCostOfOrder < presetCost) {
+                                System.out.println("\nYour order not enough to get lucky item. Order more to get lucky item.");
+                                break;
+                            }
                             int luckValue = luckItem(anOrder.getitemsOrdered().size());
                             if (luckValue != -1) {
                                 Media mediaLucky = anOrder.getMediaWithIndex(luckValue);
