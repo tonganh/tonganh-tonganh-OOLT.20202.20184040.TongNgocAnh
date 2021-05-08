@@ -3,7 +3,7 @@ package hust.soict.hedspi.aims.media;
 import hust.soict.hedspi.aims.PlayerException;
 import hust.soict.hedspi.aims.media.disc.Playable;
 
-public abstract class Media implements Comparable, Playable {
+public class Media implements Comparable, Playable {
     //	private static int index = 0;
     public int compareTo(Object obj) {
         if (obj == null) {

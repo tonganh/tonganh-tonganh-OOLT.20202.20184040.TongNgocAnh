@@ -99,6 +99,7 @@ public class Aims {
 
     public static void showMenu() throws PlayerException {
         Scanner scanner = new Scanner(System.in);
+        ArrayList<Order> listOrder = new ArrayList<Order>();
         int select;
         do {
             System.out.println("Order Management Application: ");
@@ -115,9 +116,10 @@ public class Aims {
             switch (select) {
                 case 1:
                     anOrder = Order.createOrder();
-                    if (anOrder != null)
+                    if (anOrder != null) {
                         System.out.println("Create order thanh cong");
-                    else {
+                        listOrder.add(anOrder);
+                    } else {
                         System.out.println("Ban da create qua so luong cho phep");
                         select = 0;
                     }
@@ -155,22 +157,26 @@ public class Aims {
                     break;
                 case 5:
                     if (anOrder != null) {
-                        if (!anOrder.isEmpty()) {
-                            Scanner input = new Scanner(System.in);
-                            System.out.printf("Type your preset cost you want: ");
-                            float presetCost = input.nextFloat();
-                            setTotalCostNeed(presetCost);
-                            float totalCostOfOrder = anOrder.totalCost();
-                            if (totalCostOfOrder < presetCost) {
-                                System.out.println("\nYour order not enough to get lucky item. Order more to get lucky item.");
-                                break;
-                            }
-                            int luckValue = luckItem(anOrder.getitemsOrdered().size());
-                            if (luckValue != -1) {
-                                Media mediaLucky = anOrder.getMediaWithIndex(luckValue);
-                                mediaLucky.play();
-                            }
-                        }
+                        System.out.println(listOrder.size());
+                        Order orderTest = listOrder.get(0);
+                        Media testMedia = orderTest.getitemsOrdered().get(0);
+                        testMedia.play();
+//                        if (!anOrder.isEmpty()) {
+//                            Scanner input = new Scanner(System.in);
+//                            System.out.printf("Type your preset cost you want: ");
+//                            float presetCost = input.nextFloat();
+//                            setTotalCostNeed(presetCost);
+//                            float totalCostOfOrder = anOrder.totalCost();
+//                            if (totalCostOfOrder < presetCost) {
+//                                System.out.println("\nYour order not enough to get lucky item. Order more to get lucky item.");
+//                                break;
+//                            }
+//                            int luckValue = luckItem(anOrder.getitemsOrdered().size());
+//                            if (luckValue != -1) {
+//                                Media mediaLucky = anOrder.getMediaWithIndex(luckValue);
+//                                mediaLucky.play();
+//                            }
+//                        }
                     }
                     break;
                 case 0:

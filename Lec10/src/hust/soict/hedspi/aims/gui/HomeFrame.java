@@ -1,6 +1,7 @@
 package hust.soict.hedspi.aims.gui;
 
 
+import hust.soict.hedspi.aims.PlayerException;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.book.Book;
 import hust.soict.hedspi.aims.media.disc.CompactDisc;
@@ -18,16 +19,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFrame extends GUIFrame {
+    public final float probabilityOfLuck = 0.5F;
+
+    public float getRequiredNorms() {
+        return requiredNorms;
+    }
+
+    public void setRequiredNorms(float requiredNorms) {
+        this.requiredNorms = requiredNorms;
+    }
+
+    private float requiredNorms;
+
+    public ArrayList<Integer> orderlistTotalHigherPrefined() {
+        ArrayList<Integer> arrayResult = new ArrayList<Integer>();
+        float costRequired = this.getRequiredNorms();
+        for (int i = 0; i < listOrder.size(); i++) {
+            if (listOrder.get(i).totalCost() > costRequired && listOrder.get(i).totalCost() > 0) {
+                arrayResult.add(i);
+            }
+        }
+        return arrayResult;
+    }
+
     JButton createButton = new JButton("Create new Order");
     ;
     JButton addButton = new JButton("Add item to the order");
     JButton delButton = new JButton("Delete item by Id");
     JButton displayButton = new JButton("Display the items of list order ");
 
+    JButton getLuckyButton = new JButton("Get lucky media");
     private static Order anOrder;
+    private static Media luckyItem;
+    //    Define list order
+    ArrayList<Order> listOrder = new ArrayList<Order>();
+
 
     public HomeFrame() {
         super();
+        Media test1 = new Media("1", "1", "1", 10);
+        Media test2 = new Media("1", "1", "1", 2);
+//        Order orderTest1 = Order.createOrder();
+//        Order orderTest2 = Order.createOrder();
+//        Order orderTest3 = Order.createOrder();
+//        orderTest1.addMedia(test1);
+//        orderTest2.addMedia(test1);
+//        orderTest3.addMedia(test2);
+//        listOrder.add(orderTest1);
+//        listOrder.add(orderTest2);
+//        listOrder.add(orderTest3);
 //		addExitButton();
         setTitle("Order System");
         createButton.setSize(300, 40);
@@ -38,9 +78,10 @@ public class HomeFrame extends GUIFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 anOrder = Order.createOrder();
-                if (anOrder != null)
+                if (anOrder != null) {
                     JOptionPane.showMessageDialog(null, "Create new Order thanh cong");
-                else {
+                    listOrder.add(anOrder);
+                } else {
                     JOptionPane.showMessageDialog(null, "Ban da create qua so luong cho phep", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -57,6 +98,7 @@ public class HomeFrame extends GUIFrame {
                 if (anOrder != null) {
                     GUIDialog selectDialog = new GUIDialog(null);
                     selectDialog.setTitle("Select Media");
+//                    Add book button
                     JButton bookButton = new JButton("Book");
                     bookButton.setSize(200, 40);
                     bookButton.setLocation(200, 40);
@@ -116,6 +158,7 @@ public class HomeFrame extends GUIFrame {
                     });
                     selectDialog.add(bookButton);
 
+//                    ADd digital video disc button
                     JButton dvdButton = new JButton("Digital Video Disc");
                     dvdButton.setSize(200, 40);
                     dvdButton.setLocation(200, 150);
@@ -342,8 +385,11 @@ public class HomeFrame extends GUIFrame {
                     if (anOrder.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Order empty");
                     } else {
-                        Media luckyMedia = anOrder.getALuckyItem();
-
+//                       printf random order list
+                        Media luckyItemShow = null;
+                        if (anOrder.getitemsOrdered().contains(luckyItem)) {
+                            luckyItemShow = luckyItem;
+                        }
                         GUIDialog disDialog = new GUIDialog(null);
                         disDialog.setTitle("List items of Order");
                         String column_names[] = {"ID", "Type", "Title", "Category", "Cost($)"};
@@ -362,13 +408,16 @@ public class HomeFrame extends GUIFrame {
                             } else {
                                 typeString = "CD";
                             }
-                            float cost = media.equals(luckyMedia) ? 0 : media.getCost();
+                            float cost = media.getCost();
                             model.addRow(new Object[]{media.getId(), typeString,
                                     media.getTitle(), media.getCategory(), cost});
                         }
-
-                        model.addRow(new Object[]{"", "", "", "Total: ", anOrder.totalCost() - luckyMedia.getCost()});
-//						model.addRow(new Object[] {"","","","",});
+                        float totalCostDisplay = anOrder.totalCost();
+                        if (luckyItemShow != null) {
+                            totalCostDisplay = anOrder.totalCost() - luckyItemShow.getCost();
+                        }
+                        model.addRow(new Object[]{"", "", "", "Total: ", totalCostDisplay});
+                        model.addRow(new Object[]{"", "", "", "",});
 
                         table.setSize(500, 300);
                         table.setLocation(50, 30);
@@ -405,6 +454,56 @@ public class HomeFrame extends GUIFrame {
         });
         add(displayButton);
 
+        getLuckyButton.setSize(300, 40);
+        getLuckyButton.setLocation(150, 340);
+        getLuckyButton.setFocusPainted(false);
+        getLuckyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (anOrder != null && listOrder.size() > 1) {
+                    Float valueRequired = Float.valueOf(JOptionPane.showInputDialog(null,
+                            "Nhập giá tiền bạn muốn set:", "Lucky Item ^ _^ ",
+                            JOptionPane.INFORMATION_MESSAGE));
+                    setRequiredNorms(valueRequired);
+                    ArrayList<Integer> listOrderSatisfied = orderlistTotalHigherPrefined();
+                    float luckRate = (float) (Math.random());
+                    int sizeOfList = listOrderSatisfied.size();
+                    int getLuckyNumber = (int) (luckRate * sizeOfList);
+                    if (luckRate < probabilityOfLuck || sizeOfList == 0) {
+                        JOptionPane.showConfirmDialog(null, "Chúc bạn may mắn lần sau",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        float costOfItemGive;
+                        Order orderLuckyReceiveItem = listOrder.get(listOrderSatisfied.get(getLuckyNumber));
+                        float totalCostOfLuckyOrDer = orderLuckyReceiveItem.totalCost();
+                        System.out.printf("totalCostOfLuckyOrDer: %f\n", totalCostOfLuckyOrDer);
+                        if (totalCostOfLuckyOrDer > valueRequired) {
+                            costOfItemGive = valueRequired;
+                        } else {
+                            float testPercento = ((float) 2 / (float) 10);
+                            System.out.println(testPercento);
+                            costOfItemGive = totalCostOfLuckyOrDer * testPercento;
+                        }
+                        if (orderLuckyReceiveItem.getitemsOrdered().contains(luckyItem)) {
+                            costOfItemGive = costOfItemGive - luckyItem.getCost();
+                        }
+                        System.out.printf("costOfItemGive: %f\n", costOfItemGive);
+                        luckyItem = new Media("0", "Gift", "Gift", costOfItemGive);
+                        try {
+                            luckyItem.play();
+                        } catch (PlayerException playerException) {
+                            playerException.printStackTrace();
+                        }
+                        orderLuckyReceiveItem.addMedia(luckyItem);
+                        anOrder = orderLuckyReceiveItem;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ban chua create Order", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+
+        add(getLuckyButton);
         setVisible(true);
     }
 }
